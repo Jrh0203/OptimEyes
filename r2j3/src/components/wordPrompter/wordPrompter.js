@@ -13,18 +13,21 @@ class WordPresenter extends Component {
       currentIndex: 0,
       scarletLetter: 0,
       interval: null,
+      stop: false,
       speed: 150
     }
     this.changeWord = this.changeWord.bind(this)
   }
 
   componentDidMount() {
-    const { speed } = this.state;
+    const { speed, currentIndex, wordArray, stop } = this.state;
     setTimeout(() => { delay(); }, speed);
-
     const delay = () => {
-      const time = this.changeWord()
-      setTimeout(() => { delay(); }, time);
+      const parameters = this.changeWord()
+      const { speed, currentIndex } = parameters
+      if (parameters.currentIndex < wordArray.length - 1 && !stop) {
+        setTimeout(() => { delay(); }, speed);
+      }
     }
   }
 
@@ -40,16 +43,17 @@ class WordPresenter extends Component {
     } else {
       scarletLetter = 2
     }
+    const newIndex = currentIndex + 1
 
     this.setState({
       currentWord: currentWordSplit,
-      currentIndex: currentIndex + 1,
+      currentIndex: newIndex,
       scarletLetter
     });
     if(currentWordSplit.length > 7) {
-      return speed + 100;
+      return {speed: speed + 50, currentIndex};
     }
-    return speed;
+    return {speed: speed, currentIndex};
   }
 
   speedUp = () => {
@@ -63,18 +67,23 @@ class WordPresenter extends Component {
   }
 
   render() {
+
+
+
     const { currentWord, scarletLetter } = this.state
     const left = LETTER_WIDTH * (scarletLetter+1)
 
     return(
-      <div style={{position: 'absolute', paddingLeft: '100'}}>
-        <div style={{display: 'flex', flexDirection: 'row', position: 'absolute', left: -left+'px'}}>
-          {currentWord.map((item , i)=> {
-            if(scarletLetter === i) {
-              return <h3 key={item+i} style={{position: 'relative', color: '#e8198b'}}>{item}</h3>
-            }
-            return <h3 key={item+i} style={{color: 'white'}}>{item}</h3>
-          })}
+      <div style={{width: '309px', border: '1px solid red'}}>
+        <div style={{position: 'relative', left: '65px', height: '97px'}}>
+          <div style={{display: 'flex', flexDirection: 'row', position: 'absolute', left: -left+'px'}}>
+            {currentWord.map((item , i)=> {
+              if(scarletLetter === i) {
+                return <h3 key={item+i} style={{position: 'relative', color: '#e8198b'}}>{item}</h3>
+              }
+              return <h3 key={item+i} style={{color: 'white'}}>{item}</h3>
+            })}
+          </div>
         </div>
       </div>
     )
