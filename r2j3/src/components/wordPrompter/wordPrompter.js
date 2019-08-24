@@ -11,37 +11,46 @@ class WordPresenter extends Component {
       currentWord: [''],
       withoutPunctuation: [''],
       currentIndex: 0,
+      scarletLetter: 0,
       interval: null,
-      speed: 300
+      speed: 150
     }
+    this.changeWord = this.changeWord.bind(this)
   }
 
   componentDidMount() {
-    // this.setInterval(this.state.speed);
-    this.setInterval(150);
-
-  }
-
-  setInterval = (newSpeed) => {
     const { speed } = this.state;
-    const { interval } = this.state;
-    const intervalID = setInterval(
-      () => this.changeWord(),
-      newSpeed
-    );
-    this.setState({interval: intervalID})
+    setTimeout(function() { delay(); }, speed);
+
+    const delay = () => {
+      const time = this.changeWord()
+      setTimeout(function() { delay(); }, time);
+    }
   }
 
   changeWord = () => {
-    const { currentIndex, wordArray } = this.state;
+    const { currentIndex, wordArray, speed } = this.state;
     const currentWordSplit = wordArray[currentIndex].split('')
-    const withoutPunctuation = wordArray[currentIndex].replace(/[\W_]+/g," ")
-    console.log('withoutPunctaiton', withoutPunctuation)
+
+    let scarletLetter;
+    if (currentWordSplit.length <= 1) {
+      scarletLetter = 0 
+    } else if (currentWordSplit.length < 8) {
+      scarletLetter = 1
+    } else {
+      scarletLetter = 2
+    }
+
     this.setState({
       currentWord: currentWordSplit,
-      withoutPunctuation,
-      currentIndex: currentIndex + 1
+      currentIndex: currentIndex + 1,
+      scarletLetter
     });
+    
+    if(currentWordSplit.length > 7) {
+      return speed + 100;
+    }
+    return speed;
   }
 
   speedUp = () => {
@@ -55,33 +64,13 @@ class WordPresenter extends Component {
   }
 
   render() {
-    const { currentWord, withoutPunctuation } = this.state
-    const currentWordWithoutPunctuation = currentWord.slice();
-    let left
-    const even = Number.isInteger(currentWord.length/2)
-    let scarletLetter;
-    if (currentWord.length <= 1) {
-      scarletLetter = 0 
-    } else if (currentWord.length < 8) {
-      scarletLetter = 1
-    } else {
-      scarletLetter = 2
-    }
+    const { currentWord, scarletLetter } = this.state
+    const left = LETTER_WIDTH * (scarletLetter+1)
 
-    left = LETTER_WIDTH * (scarletLetter+1)
-    console.log('left', left)
-    
     return(
       <div style={{position: 'absolute', paddingLeft: '100'}}>
         <div style={{display: 'flex', flexDirection: 'row', position: 'absolute', left: -left+'px'}}>
           {currentWord.map((item , i)=> {
-            let color;
-            let isMiddle
-            if (Number.isInteger(currentWord.length/2)) {
-              isMiddle = Math.floor(currentWord.length/2-1) === i
-            } else {
-              isMiddle = Math.floor(currentWord.length/2) === i
-            }
             if(scarletLetter === i) {
               return <h3 key={item+i} style={{position: 'relative', color: '#e8198b'}}>{item}</h3>
             }
