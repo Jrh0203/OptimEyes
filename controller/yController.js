@@ -2,18 +2,20 @@ const request = require("request");
 
 module.exports = {
     getBooks: function(req, res){
-       console.log(req.body); 
+       console.log(typeof req.body); 
        request.post({
         url: 'https://api.yuuvis.io/dms/objects/search',
-        form: req.body,
+        body: req.body,
+        json: true,
         headers: { 
-           "Content-Type":"application/json","Ocp-Apim-Subscription-Key":"cb19c65493e14beeab9a38302aeb0801"
+           "Content-Type":"application/json",
+           "Ocp-Apim-Subscription-Key":"cb19c65493e14beeab9a38302aeb0801"
         },
         method: 'POST'
        },
      
        function (e, r, body) {
-           console.log(body);
+           res.json(body);
        });
     }
 }
