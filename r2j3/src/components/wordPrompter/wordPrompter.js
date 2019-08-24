@@ -20,11 +20,11 @@ class WordPresenter extends Component {
 
   componentDidMount() {
     const { speed } = this.state;
-    setTimeout(function() { delay(); }, speed);
+    setTimeout(() => { delay(); }, speed);
 
     const delay = () => {
       const time = this.changeWord()
-      setTimeout(function() { delay(); }, time);
+      setTimeout(() => { delay(); }, time);
     }
   }
 
@@ -46,7 +46,6 @@ class WordPresenter extends Component {
       currentIndex: currentIndex + 1,
       scarletLetter
     });
-    
     if(currentWordSplit.length > 7) {
       return speed + 100;
     }
