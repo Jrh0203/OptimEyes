@@ -11,7 +11,6 @@ class Homepage extends Component {
               "maxItems": 50
             }
         },
-
     }
 
     // function API.GetBookList(this.state.yBody).then(res => console.log(res))

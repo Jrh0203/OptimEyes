@@ -8,5 +8,7 @@ export default {
     GetBooksContent: function(id) {
         return axios.get("/api/getbookcontent/"+ id);
     },
-
+    HelloWorld: function() {
+        return axios.get("/api/helloworld");
+    }
 }
