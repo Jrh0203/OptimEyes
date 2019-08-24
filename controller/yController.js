@@ -1,8 +1,7 @@
 const request = require("request");
 
 module.exports = {
-    getBooks: function(req, res){
-       console.log(typeof req.body); 
+    getBooks: function(req, res){ 
        request.post({
         url: 'https://api.yuuvis.io/dms/objects/search',
         body: req.body,
