@@ -4,8 +4,17 @@ import { Container, Row, Col } from "react-bootstrap";
 class Homepage extends Component {
 
     state = {
+        yBody: {
+            "query": {
+              "statement": "SELECT * FROM enaio:object",
+              "skipCount": 0,
+              "maxItems": 50
+            }
+        },
 
     }
+
+    // function API.GetBookList(this.state.yBody).then(res => console.log(res))
 
     render(){
         return(
