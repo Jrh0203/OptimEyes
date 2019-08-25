@@ -16,6 +16,7 @@ class Homepage extends Component {
     constructor(props){
         super(props);
         this.state = {
+          selected: 0,
             yBody: {
                 "query": {
                 "statement": "SELECT * FROM enaio:object",
@@ -54,6 +55,10 @@ class Homepage extends Component {
                 objects: books.data.objects
             })
         })
+    }
+
+    changeIndex(i) {
+      this.setState({selected: i})
     }
 
     render(){
@@ -95,8 +100,9 @@ class Homepage extends Component {
                         <hr style={{backgroundColor:'white', marginTop: 0}}></hr>
                         {this.state.objects.length ? (
                             <div>
-                                {this.state.objects.map(book => (
-                                    <Row>
+                                {this.state.objects.map((book, i) => {
+                                  if(this.state.selected !== i){
+                                    return <Row onClick={() => this.changeIndex(i)}>
                                         <Col md={1}>
                                             <i style={{marginBottom: '16px', paddingTop: 0}} className="fas fa-book-open"></i>
                                         </Col>
@@ -112,7 +118,25 @@ class Homepage extends Component {
                                         </p>
                                         </Col>
                                     </Row>
-                                ))}
+                                      } else{
+                                        return <Row onClick={() => this.changeIndex(i)}>
+                                        <Col md={1}>
+                                            <i style={{marginBottom: '16px', paddingTop: 0}} className="fas fa-book-open"></i>
+                                        </Col>
+                                        <Col>   
+                                        <p style={{cursor: 'pointer', paddingLeft: '10px', color: 'rgb(232, 25, 139)'}}onClick={() => {
+                                            let oId = book["properties"]["enaio:objectId"].value;
+                                            this.setState({ text: "" });
+                                            API.GetBooksContent(oId).then(text => {
+                                                this.setState({ text: text.data });
+                                            })
+                                        }}>
+                                            {book.contentStreams[0].fileName.substring(0, book.contentStreams[0].fileName.length - 4).toUpperCase()}
+                                        </p>
+                                        </Col>
+                                    </Row>
+                                      }
+                                  })}
                             </div>
                         ) : null}
                     </Col>
