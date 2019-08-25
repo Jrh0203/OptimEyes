@@ -201,12 +201,14 @@ class Pagehome extends Component {
             smallDist = leftDist
           }
           var ratio = bigDist/smallDist
-          console.log(ratio)
+          // console.log(ratio)
           if (ratio<this.sideThreshold && this.lastRatio>this.sideThreshold && this.buffer == 0){
-            console.log("RESUME")
+            console.log('here1')
+            this.props.toggleMovement(false)
           }
           if (ratio>this.sideThreshold && this.lastRatio<this.sideThreshold && this.buffer == 0){
-            console.log("PAUSE")
+            console.log('here2')
+            this.props.toggleMovement(true)
           }
           this.lastRatio = ratio
           if (this.buffer>1)
@@ -240,13 +242,13 @@ class Pagehome extends Component {
 
   render() {
     return (
-      <div className="Homepage" >
+      <div className="Homepage" style={{position: 'absolute', left: '800px', top: '40px'}} >
         <Webcam
           audio={false}
-          height={600}
+          height={100}
           ref={this.webcam}
           screenshotFormat="image/jpeg"
-          width={600}
+          width={100}
           videoConstraints={videoConstraints}
         />
       </div>

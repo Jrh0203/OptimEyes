@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import DisplayText from './displayText';
 import Navigation from './Navigation'
+import {Pagehome} from '../../pages/homepage/homepage'
 import "./wordPresenter.css";
 
 const LETTER_WIDTH = 24.422
 const NUMBER_RANGE = 15;
+let stopThis = false;
 
 class WordPresenter extends Component {
   constructor(props) {
@@ -16,15 +18,30 @@ class WordPresenter extends Component {
       currentWord: [''],
       withoutPunctuation: [''],
       currentIndex: 0,
+      countdown: 3,
       scarletLetter: 0,
       interval: null,
       stop: false,
+      showCountdown: false,
       snippet: null,
       position: 0,
       selectedWordIndex: null,
       speed: 100
     }
     this.changeWord = this.changeWord.bind(this)
+  }
+
+  showTheCountdown = (value) => {
+    console.log('here?', value)
+    this.setState({showCountdown: value})
+  }
+
+  decreaseCountdown = () => {
+    this.setState({countdown: this.state.countdown - 1})
+  }
+
+  resetCountdown = () => {
+    this.setState({countdown: 3})
   }
 
   cutRow = (position) => {
@@ -54,17 +71,19 @@ class WordPresenter extends Component {
     this.setState({ snippet, selectedWordIndex })
   }
 
+  delay = () => {
+    const { wordArray, stop } = this.state;
+    const parameters = this.changeWord()
+    this.constructSentence()
+    const { speed } = parameters
+    if (parameters.currentIndex < wordArray.length - 1 && !stopThis) {
+      setTimeout(() => { this.delay(); }, speed);
+    }
+  }
+
   componentDidMount() {
     const { speed, currentIndex, wordArray, stop } = this.state;
-    setTimeout(() => { delay(); }, speed);
-    const delay = () => {
-      const parameters = this.changeWord()
-      this.constructSentence()
-      const { speed, currentIndex } = parameters
-      if (parameters.currentIndex < wordArray.length - 1 || !stop) {
-        setTimeout(() => { delay(); }, speed);
-      }
-    }
+    setTimeout(() => { this.delay(); }, speed);
   }
 
   changeWord = () => {
@@ -104,10 +123,30 @@ class WordPresenter extends Component {
     }
   }
 
+  toggleMovement = () => {
+    if(!stopThis) {
+      stopThis = !stopThis;
+      return
+    } else {
+      stopThis = !stopThis;
+      this.delay();
+    }
+    // this.setState({currentIndex: this.state.currentI})
+  }
+
+  faceToggleMovement = (stop) => {
+    if(stop) {
+      stopThis = !stopThis;
+      return
+    } else {
+      stopThis = !stopThis;
+      this.delay();
+    }
+  }
+
   render() {
     const { currentWord, scarletLetter, snippet, selectedWordIndex, element } = this.state
     const left = LETTER_WIDTH * ( scarletLetter + 1 )
-
     return(
       <div
         className="wordPresent" 
@@ -119,21 +158,25 @@ class WordPresenter extends Component {
           <div className="selectedWerd" style={{position: 'relative', left: '120px', height: '123px', top: '27%'}}>
               <div className="line"></div>
               <div className="horizontal_line_top"></div>
-            <div style={{display: 'flex', flexDirection: 'row', position: 'absolute', left: -left+'px'}}>
+            <div style={{display: 'flex', flexDirection: 'row', position: 'absolute', left: this.state.showCountdown ? 0 : -left+'px'}}>
+              {this.state.showCountdown && <h2 className="monospaced" style={{position: 'relative', color: '#e8198b', left: '-31px'}}>{this.state.countdown}</h2>}
               {currentWord.map((item , i)=> {
+                if(!this.state.showCountdown) {
                 if(scarletLetter === i) {
                   return <h2 className="monospaced" key={item+i} style={{position: 'relative', color: '#e8198b'}}>{item}</h2>
                 }
                 return <h2 className="monospaced" key={item+i} style={{color: 'white'}}>{item}</h2>
+              }
               })}
             </div>
             <div className="horizontal_line_bottom"></div>
             <div className="line_bottom"></div>
           </div>
           <element/>
-          <Navigation/>
+          <Pagehome toggleMovement={this.faceToggleMovement}/>
+          <Navigation countdown={this.state.countdown} toggleMovement={this.toggleMovement} stopThis={stopThis} decreaseCountdown={this.decreaseCountdown} resetCountdown={this.resetCountdown} showTheCountdown={this.showTheCountdown}/>
         </div>
-        { snippet && <DisplayText snippet={snippet} wordArraySnippet={this.state.wordArraySnippet} LETTER_WIDTH={LETTER_WIDTH} selectedWordIndex={selectedWordIndex} cutRow={this.cutRow} position={this.state.position}/> }
+        { snippet && <DisplayText snippet={snippet} wordArraySnippet={this.state.wordArraySnippet} LETTER_WIDTH={LETTER_WIDTH} selectedWordIndex={selectedWordIndex} cutRow={this.cutRow} position={this.state.position} stop={this.state.stop}/> }
       </div>
     )
   }

@@ -1,18 +1,12 @@
-.wrapper {
-    text-align: center;
-    margin-top: 3%;
-    margin-left: 8%;
-}
-
-.fas {
-    margin-left: 1%;
-    margin-right: 1%;
-}
-
-.wpmSelect {
-    width: 8%;
+.wrapperNav {
+    display: flex;
     position: relative;
-    left: 57%;
-    bottom: 33px;
-    
+    left: 444px;
+    top: 23px;
+
+}
+
+i {
+    padding: 10px;
+    cursor: pointer;
 }
