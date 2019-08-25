@@ -17,7 +17,6 @@ class Navigation extends Component {
 
     endCountdown = () => {
         const { toggleMovement, stopThis } = this.props;
-        console.log("this.props", this.props)
         clearInterval(intervalId)
         this.props.toggleMovement()
         this.props.resetCountdown();
@@ -26,20 +25,17 @@ class Navigation extends Component {
 
 
     handleTimer = () => {
-        console.log('state?', this.props.stopThis)
         if(!this.props.stopThis) {
             this.props.toggleMovement();
             return
         }
         this.props.showTheCountdown(true)
         if(this.state.count === 0) {
-        console.log('here!!!!', )
           this.endCountdown();
         } else {
             intervalId = setInterval(() => {
                 if(this.props.countdown !== 1){
                     this.props.decreaseCountdown()
-                    console.log('hereeee')
                 } else {
                     this.endCountdown()
                 }
@@ -81,7 +77,7 @@ class Navigation extends Component {
                         <option data-val="80">750wpm</option>
                     </Form.Control>
                 </Form>
-                {/* <Pagehome faceToggleMovement={this.faceToggleMovement} handleTimer={this.handleTimer}/> */}
+                <Pagehome faceToggleMovement={this.faceToggleMovement} handleTimer={this.handleTimer}/>
             </div>
         )
     }

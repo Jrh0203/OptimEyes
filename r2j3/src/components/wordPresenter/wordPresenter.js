@@ -33,7 +33,6 @@ class WordPresenter extends Component {
   }
 
   showTheCountdown = (value) => {
-    console.log('here?', value)
     this.setState({showCountdown: value})
   }
 
