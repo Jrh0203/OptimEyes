@@ -46,7 +46,7 @@ class DisplayText extends Component {
 					<div className="thing" style={{position: 'relative', top: -this.state.top+'px', lineHeight: '1.6', width: '70vw', display: 'flex', flexFlow: 'wrap'}}>
 							{wordArraySnippet.map((item, i) => {
 								if(selectedWordIndex-position === i) {
-									return <div style={{color: 'rgb(150,100,100)', fontSize: '20px', lineHeight: '1.6'}} value={i} class={i} id='selected' >{item}&nbsp;</div>
+									return <div style={{color: 'rgb(100,100,100)', backgroundColor: 'rgb(40,40,40)',fontSize: '20px', lineHeight: '1.6'}} value={i} class={i} id='selected' >{item}&nbsp;</div>
 								}
 								return <div style={{fontSize: '20px', lineHeight: '1.6', color: 'rgb(100,100,100)'}} id={i}>{item}&nbsp;</div>
 							})}

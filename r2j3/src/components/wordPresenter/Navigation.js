@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './Navigation.css'
 import { Form } from "react-bootstrap";
+import {Pagehome} from '../../pages/homepage/homepage'
 
 let count = 3;
 let intervalId;
@@ -80,6 +81,7 @@ class Navigation extends Component {
                         <option data-val="80">750wpm</option>
                     </Form.Control>
                 </Form>
+                {/* <Pagehome faceToggleMovement={this.faceToggleMovement} handleTimer={this.handleTimer}/> */}
             </div>
         )
     }

@@ -173,8 +173,7 @@ class WordPresenter extends Component {
             <div className="line_bottom"></div>
           </div>
           <element/>
-          <Pagehome toggleMovement={this.faceToggleMovement}/>
-          <Navigation countdown={this.state.countdown} toggleMovement={this.toggleMovement} stopThis={stopThis} decreaseCountdown={this.decreaseCountdown} resetCountdown={this.resetCountdown} showTheCountdown={this.showTheCountdown}/>
+          <Navigation faceToggleMovement={this.faceToggleMovement} countdown={this.state.countdown} toggleMovement={this.toggleMovement} stopThis={stopThis} decreaseCountdown={this.decreaseCountdown} resetCountdown={this.resetCountdown} showTheCountdown={this.showTheCountdown}/>
         </div>
         { snippet && <DisplayText snippet={snippet} wordArraySnippet={this.state.wordArraySnippet} LETTER_WIDTH={LETTER_WIDTH} selectedWordIndex={selectedWordIndex} cutRow={this.cutRow} position={this.state.position} stop={this.state.stop}/> }
       </div>
