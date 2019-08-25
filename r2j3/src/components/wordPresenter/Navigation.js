@@ -65,8 +65,8 @@ class Navigation extends Component {
                 <i onClick={() => this.handleTimer()} className={icon}></i>
                 <i className="fas fa-redo-alt"></i>
                 <Form style={{paddingLeft: '25px'}}>
-                    <Form.Control className="wpmSelect" as="select" style={{backgroundColor:'rgb(44, 48, 58)'}}>
-                        <option>wpm</option>
+                    <Form.Control className="wpmSelect" as="select" style={{backgroundColor:'rgb(44, 48, 58)', color: 'white'}}>
+                        <option style={{backgroundColor:'rgb(44, 48, 58)'}}>wpm</option>
                         <option data-val="300">200wpm</option>
                         <option data-val="240">250wpm</option>
                         <option data-val="200">300wpm</option>

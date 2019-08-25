@@ -41,7 +41,7 @@ class DisplayText extends Component {
 		this.test()
 		const { snippet, selectedWordIndex, position, wordArraySnippet } = this.props;
 		return (
-			<div style={{padding: '25px', backgroundColor: 'rgb(32,32,32)', marginTop: '50px'}}>
+			<div className="rounded_corners" style={{padding: '25px', backgroundColor: 'rgb(32,32,32)', marginTop: '50px'}}>
 				<div style={{height: '100px', overflow: 'hidden', position: 'relative', top: 0, lineHeight: '1.6', backgroundColor: 'rgb(32,32,32)', width: '100%'}}>
 					<div className="thing" style={{position: 'relative', top: -this.state.top+'px', lineHeight: '1.6', width: '70vw', display: 'flex', flexFlow: 'wrap'}}>
 							{wordArraySnippet.map((item, i) => {

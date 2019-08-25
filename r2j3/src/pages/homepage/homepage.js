@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React, { Component,Fragment } from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
 import WordPresenter from "../../components/wordPresenter/wordPresenter";
 import API from "../../utils/API";
+import QuickLinks from '../../components/quickLinks/quickLinks'
 import "./styles.css";
 import Webcam from "react-webcam";
 import * as faceapi from 'face-api.js';
@@ -58,9 +59,10 @@ class Homepage extends Component {
     render(){
         
         return(
+          <Fragment>
             <Container fluid>
-                <Row style={{height: '100vh'}}>
-                    <Col md={2} style={{backgroundColor: '#2C303A'}} className="custom_sidebar">
+                <Row className="custom_row_height">
+                    <Col md={2} style={{backgroundColor: '#2C303A'}} className="custom_sidebar rounded_corners">
                         <Row className="row_padding">
                         <Col className="column_right"><i className="fas fa-folder-plus"></i></Col>
                         </Row>
@@ -127,6 +129,8 @@ class Homepage extends Component {
                     </Col>
                 </Row>
             </Container>
+            <div><QuickLinks/></div>
+          </Fragment>
         )
     }
 }

@@ -3,6 +3,7 @@ import DisplayText from './displayText';
 import Navigation from './Navigation'
 import {Pagehome} from '../../pages/homepage/homepage'
 import "./wordPresenter.css";
+import QuickLinks from '../quickLinks/quickLinks';
 
 const LETTER_WIDTH = 24.422
 const NUMBER_RANGE = 15;
@@ -93,7 +94,7 @@ class WordPresenter extends Component {
       this.setState({stop: true})
     }
     let scarletLetter;
-    if (currentWordSplit.length <= 1) {
+    if (currentWordSplit.length <= 2) {
       scarletLetter = 0 
     } else if (currentWordSplit.length < 8) {
       scarletLetter = 1
@@ -154,7 +155,7 @@ class WordPresenter extends Component {
         justifyContent: 'center',
         flexDirection: 'column',
         alignItems: 'center'}}>
-        <div style={{width: '100%', backgroundColor: 'rgb(32,32,32)', height: '200px' }}>
+        <div className="rounded_corners" style={{width: '100%', backgroundColor: 'rgb(32,32,32)', height: '200px' }}>
           <div className="selectedWerd" style={{position: 'relative', left: '120px', height: '123px', top: '27%'}}>
               <div className="line"></div>
               <div className="horizontal_line_top"></div>
@@ -172,7 +173,6 @@ class WordPresenter extends Component {
             <div className="horizontal_line_bottom"></div>
             <div className="line_bottom"></div>
           </div>
-          <element/>
           <Navigation faceToggleMovement={this.faceToggleMovement} countdown={this.state.countdown} toggleMovement={this.toggleMovement} stopThis={stopThis} decreaseCountdown={this.decreaseCountdown} resetCountdown={this.resetCountdown} showTheCountdown={this.showTheCountdown}/>
         </div>
         { snippet && <DisplayText snippet={snippet} wordArraySnippet={this.state.wordArraySnippet} LETTER_WIDTH={LETTER_WIDTH} selectedWordIndex={selectedWordIndex} cutRow={this.cutRow} position={this.state.position} stop={this.state.stop}/> }

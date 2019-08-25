@@ -16,7 +16,6 @@ class App extends Component {
             <Route exact path="/" component={Homepage} />
             <Route exact path="/reading/xdarkmaster512x" component={Reading} />
           </Switch>
-          <p className="disclaimer">Yuuvis slaved all day in the kitchen for this</p>
         </div>
       </Router>
     );

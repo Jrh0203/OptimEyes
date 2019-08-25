@@ -1,3 +1,15 @@
 .custom_navbar {
     background-color: rgb(20,20,20) !important
 }
+
+.icon {
+    
+}
+
+.rounded_corners {
+    border-radius: 5px;
+}
+
+.custom_row_height {
+    height: calc(100vh - 112px)
+}
