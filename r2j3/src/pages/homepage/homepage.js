@@ -109,6 +109,7 @@ class Homepage extends Component {
                     </Col>
                     <Col md={9}>
                         {/* {this.state.text.length ? ( */}
+                            <i className="fas fa-envelope"></i>
                             <WordPresenter content={this.state.text} element={<i className="fas fa-envelope"></i>} />
                         {/* ):  */}
                         <div className="spinnerRow">
