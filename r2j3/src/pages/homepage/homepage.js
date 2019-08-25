@@ -34,16 +34,25 @@ class Homepage extends Component {
                 <Row>
                     <Col md={3}>
                         <Row>
+                            <Col md={1}>
+                                <i class="fas fa-folder"></i>
+                            </Col>
                             <Col>
                                 <p>My Folder</p>
                             </Col>
                         </Row>
                         <Row>
+                            <Col md={1}>
+                                <i class="fas fa-folder-open"></i>
+                            </Col>
                             <Col>
                                 <p>Recents</p>
                             </Col>
                         </Row>
                         <Row>
+                            <Col md={1}>
+                                <i class="fas fa-envelope"></i>
+                            </Col>
                             <Col>
                                 <p>No reply at Yuuvis</p>
                             </Col>
@@ -52,6 +61,9 @@ class Homepage extends Component {
                             <div>
                                 {this.state.objects.map(book => (
                                     <Row>
+                                        <Col md={1}>
+                                            <i class="fas fa-book-open"></i>
+                                        </Col>
                                         <Col>   
                                         <p onClick={() => {
                                             let oId = book["properties"]["enaio:objectId"].value;
