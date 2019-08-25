@@ -10,7 +10,6 @@ module.exports = {
                 "Content-Type":"application/json",
                 "Ocp-Apim-Subscription-Key":"cb19c65493e14beeab9a38302aeb0801"
             }
-
         },
         function (e, r, body) {
             res.json(body);

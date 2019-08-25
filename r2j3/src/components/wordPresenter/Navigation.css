@@ -1,3 +1,18 @@
-/* .wrapper {
+.wrapper {
     text-align: center;
-} */
+    margin-top: 3%;
+    margin-left: 8%;
+}
+
+.fas {
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.wpmSelect {
+    width: 8%;
+    position: relative;
+    left: 57%;
+    bottom: 33px;
+    
+}
