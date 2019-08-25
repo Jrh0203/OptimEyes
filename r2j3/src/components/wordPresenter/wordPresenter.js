@@ -105,7 +105,7 @@ class WordPresenter extends Component {
   }
 
   render() {
-    const { currentWord, scarletLetter, snippet, selectedWordIndex } = this.state
+    const { currentWord, scarletLetter, snippet, selectedWordIndex, element } = this.state
     const left = LETTER_WIDTH * ( scarletLetter + 1 )
 
     return(
@@ -122,14 +122,15 @@ class WordPresenter extends Component {
             <div style={{display: 'flex', flexDirection: 'row', position: 'absolute', left: -left+'px'}}>
               {currentWord.map((item , i)=> {
                 if(scarletLetter === i) {
-                  return <h2 key={item+i} style={{position: 'relative', color: '#e8198b'}}>{item}</h2>
+                  return <h2 className="monospaced" key={item+i} style={{position: 'relative', color: '#e8198b'}}>{item}</h2>
                 }
-                return <h2 key={item+i} style={{color: 'white'}}>{item}</h2>
+                return <h2 className="monospaced" key={item+i} style={{color: 'white'}}>{item}</h2>
               })}
             </div>
             <div className="horizontal_line_bottom"></div>
             <div className="line_bottom"></div>
           </div>
+          <element/>
           <Navigation/>
         </div>
         { snippet && <DisplayText snippet={snippet} wordArraySnippet={this.state.wordArraySnippet} LETTER_WIDTH={LETTER_WIDTH} selectedWordIndex={selectedWordIndex} cutRow={this.cutRow} position={this.state.position}/> }
