@@ -49,7 +49,7 @@ class WordPresenter extends Component {
       // console.log('here!', currentIndex, R)
       end = currentIndex + NUMBER_RANGE
     }
-    console.log('start')
+    // console.log('start')
     const snippet = wordArray.slice(start, end)
     this.setState({ snippet, selectedWordIndex })
   }

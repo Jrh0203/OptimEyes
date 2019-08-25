@@ -20,7 +20,7 @@ class DisplayText extends Component {
 		const selected = document.getElementById('selected')
 
 
-		console.log('selected.getBoundingClientRect().left', selected.getBoundingClientRect().left, this.state.left)
+		// console.log('selected.getBoundingClientRect().left', selected.getBoundingClientRect().left, this.state.left)
 		if(selected) {
 			if(selected.getBoundingClientRect().left < this.state.left) {
 				console.log('here yoooo')
