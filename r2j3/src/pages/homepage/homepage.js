@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Spinner } from "react-bootstrap";
+import { Container, Row, Col, Modal, Button, Spinner, Form } from "react-bootstrap";
 import WordPresenter from "../../components/wordPresenter/wordPresenter";
 import API from "../../utils/API";
 import "./styles.css";
 import Webcam from "react-webcam";
 import * as faceapi from 'face-api.js';
 import "./styles.css"
-//import WebCamPicture from './WebCamPicture.js';
-// import * as handTrack from 'handtrackjs';
-import {Helmet} from "react-helmet";
 
 
 class Homepage extends Component {
@@ -22,6 +19,7 @@ class Homepage extends Component {
                 "maxItems": 50
                 }
             },
+            setShow: false,
             objects: [],
             text: `"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains."
             On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.
@@ -42,8 +40,9 @@ class Homepage extends Component {
             On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.
             On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.
             On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.
-            
-            `
+            `,
+            DocWordCount: 0,
+            Percentage: 0
         }
     }
 
@@ -55,14 +54,34 @@ class Homepage extends Component {
         })
     }
 
+    handleClose = () => {
+        this.setState({
+            setShow: false
+        })
+    }
+
+    setShow = () => {
+        this.setState({
+            setShow: true 
+        })
+    }
+
+    calculatePercentage = (len, i) => {
+        let perc = Math.floor(i/len * 100);
+        this.setState({
+            Percentage: perc
+        })
+        console.log(this.state.Percentage);
+    }
+
     render(){
-        
+
         return(
             <Container fluid>
                 <Row style={{height: '100vh'}}>
                     <Col md={2} style={{backgroundColor: '#2C303A'}} className="custom_sidebar">
                         <Row className="row_padding">
-                        <Col className="column_right"><i className="fas fa-folder-plus"></i></Col>
+                        <Col className="column_right"><p class="folderTxt">NEW FOLDER</p><i className="fas fa-folder-plus folderIs"></i></Col>
                         </Row>
                         <Row className="folder_wrapper">
                             <Col md={1}>
@@ -99,22 +118,60 @@ class Homepage extends Component {
                                         <Col>   
                                         <p onClick={() => {
                                             let oId = book["properties"]["enaio:objectId"].value;
+                                            console.log(oId);
                                             this.setState({ text: "" });
                                             API.GetBooksContent(oId).then(text => {
                                                 this.setState({ text: text.data });
-                                            })
+                                            });
+                                            API.GetBookMetaData(oId).then(meta => {
+                                                let docMetaData = JSON.parse(meta.data);
+                                                let wordCount = Math.floor(docMetaData.objects[0].contentStreams[0].length / 2);
+                                                this.setState({
+                                                    DocWordCount: wordCount,
+                                                    Percentage: 0
+                                                })
+                                            });
                                         }}>
                                             {book.contentStreams[0].fileName.substring(0, book.contentStreams[0].fileName.length - 4).toUpperCase()}
                                         </p>
                                         </Col>
                                     </Row>
                                 ))}
+                            <hr></hr>
+                            <Row>
+                                <Col className="column_right"><p className="upload" onClick={() => this.setShow()}>UPLOAD</p><i class="fas fa-plus-circle upCircle" onClick={() => this.setShow()}></i></Col>
+                            </Row>
+                            <Modal show={this.state.setShow} onHide={() => this.handleClose()}>
+                                <Modal.Header className="uploadModal" closeButton>
+                                    <Modal.Title>Import to Yuuvis</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body className="uploadModal">
+                                    <Row>
+                                        <Col md={3}>
+                                            <p className="urlHeading">URL:</p>
+                                        </Col>
+                                        <Col>
+                                            <Form.Control placeholder="https://www.example.com" />
+                                        </Col>
+                                    </Row>
+                                </Modal.Body>
+                                    <Modal.Footer className="uploadModal">
+                                    <Button variant="secondary" onClick={() => this.handleClose()}>
+                                        Close
+                                    </Button>
+                                    <Button variant="primary" className="yuButton" onClick={() => this.handleClose()}>
+                                        Upload
+                                    </Button>
+                                </Modal.Footer>
+                            </Modal>
                             </div>
                         ) : null}
                     </Col>
                     <Col md={9}>
                         {this.state.text.length ? (
-                            <WordPresenter content={this.state.text} element={<i className="fas fa-envelope"></i>} />
+                            <div>
+                                <WordPresenter content={this.state.text} element={<i className="fas fa-envelope"></i>} calculatePercentage={this.calculatePercentage}/>
+                            </div>
                         ): 
                         <div className="spinnerRow">
                             <Row>

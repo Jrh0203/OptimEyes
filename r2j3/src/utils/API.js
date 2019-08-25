@@ -13,5 +13,9 @@ export default {
     },
     GetBookStatus: function(id) {
         return axios.get("/api/bookstatus/" + id);
+    },
+    // put in get metadata api call with req.params.id
+    GetBookMetaData: function(id) {
+        return axios.get("/api/getMetadata/" + id)
     }
 }

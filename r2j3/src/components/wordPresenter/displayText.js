@@ -21,12 +21,8 @@ class DisplayText extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		const selected = document.getElementById('selected')
-
-
-		// console.log('selected.getBoundingClientRect().left', selected.getBoundingClientRect().left, this.state.left)
 		if(selected) {
 			if(selected.getBoundingClientRect().left < this.state.left) {
-				// console.log('here yoooo')
 				this.setState({top: this.state.top+32})
 			} 
 			this.setState({left: selected.getBoundingClientRect().left})
