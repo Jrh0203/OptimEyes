@@ -1,14 +1,17 @@
 import React, { Component } from'react';
 
+var count = 3;
+
 class DisplayText extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			left: 0,
-			leftPrevious: 0,
+            leftPrevious: 0,
+            timer: 3,
 			top: 0
 		}
-	}
+    }
 
 	test = () => {
 		const selected = document.getElementById('selected')
@@ -20,10 +23,10 @@ class DisplayText extends Component {
 		const selected = document.getElementById('selected')
 
 
-		console.log('selected.getBoundingClientRect().left', selected.getBoundingClientRect().left, this.state.left)
+		// console.log('selected.getBoundingClientRect().left', selected.getBoundingClientRect().left, this.state.left)
 		if(selected) {
 			if(selected.getBoundingClientRect().left < this.state.left) {
-				console.log('here yoooo')
+				// console.log('here yoooo')
 				this.setState({top: this.state.top+32})
 			} 
 			this.setState({left: selected.getBoundingClientRect().left})

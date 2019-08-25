@@ -1,3 +1,11 @@
-/* .wrapper {
-    color: white;
-} */
+.wrapper {
+    position: relative;
+    left: 204px;
+    top: 23px;
+
+}
+
+i {
+    padding: 10px;
+    cursor: pointer;
+}
