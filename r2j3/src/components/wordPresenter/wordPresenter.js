@@ -116,7 +116,7 @@ class WordPresenter extends Component {
         flexDirection: 'column',
         alignItems: 'center'}}>
         <div style={{width: '100%', backgroundColor: 'rgb(32,32,32)', height: '200px' }}>
-          <div style={{position: 'relative', left: '200px', height: '123px', top: '27%'}}>
+          <div className="selectedWerd" style={{position: 'relative', left: '120px', height: '123px', top: '27%'}}>
               <div className="line"></div>
               <div className="horizontal_line_top"></div>
             <div style={{display: 'flex', flexDirection: 'row', position: 'absolute', left: -left+'px'}}>
