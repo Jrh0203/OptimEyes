@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Spinner } from "react-bootstrap";
 import API from "../../utils/API";
+import "./styles.css";
 
 class Homepage extends Component {
     constructor(props){
@@ -13,14 +14,13 @@ class Homepage extends Component {
                 "maxItems": 50
                 }
             },
-            objects: []
+            objects: [],
+            text: ""
         }
     }
 
     componentDidMount(){
         API.GetBooksList(this.state.yBody).then(books => {
-            console.log(books.data.objects);
-            console.log(books.data.objects[0]["properties"]["enaio:objectId"].value);
             this.setState({
                 objects: books.data.objects
             })
@@ -32,21 +32,54 @@ class Homepage extends Component {
         return(
             <Container>
                 <Row>
-                    <Col>
+                    <Col md={3}>
+                        <Row>
+                            <Col>
+                                <p>My Folder</p>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <p>Recents</p>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <p>No reply at Yuuvis</p>
+                            </Col>
+                        </Row>
                         {this.state.objects.length ? (
                             <div>
                                 {this.state.objects.map(book => (
-                                    <h1 onClick={() => {
-                                        let oId = book["properties"]["enaio:objectId"].value;
-                                        API.GetBooksContent(oId).then(text => {
-                                            console.log(text.data);
-                                        })
-                                    }}>
-                                    {book.contentStreams[0].fileName.substring(0, book.contentStreams[0].fileName.length - 4)}
-                                    </h1>
+                                    <Row>
+                                        <Col>   
+                                        <p onClick={() => {
+                                            let oId = book["properties"]["enaio:objectId"].value;
+                                            this.setState({ text: "" });
+                                            API.GetBooksContent(oId).then(text => {
+                                                this.setState({ text: text.data });
+                                            })
+                                        }}>
+                                            {book.contentStreams[0].fileName.substring(0, book.contentStreams[0].fileName.length - 4)}
+                                        </p>
+                                        </Col>
+                                    </Row>
                                 ))}
                             </div>
                         ) : null}
+                    </Col>
+                    <Col>
+                        {this.state.text.length ? (
+                            <p>{this.state.text}</p>
+                        ): 
+                        <div className="spinnerRow">
+                            <Row>
+                                <Col>
+                                    <Spinner animation="border" variant="secondary" />
+                                    <p>OptimEyes is grabbing your content</p>
+                                </Col>
+                            </Row>
+                        </div>}
                     </Col>
                 </Row>
             </Container>

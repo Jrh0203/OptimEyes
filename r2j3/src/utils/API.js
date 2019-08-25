@@ -8,4 +8,10 @@ export default {
         return axios.get("/api/getbookcontent/"+ id);
         // id will be objects[0]["properties"]["enaio:objectId"]
     },
+    SaveBookStatus: function(data) {
+        return axios.post("/api/bookstatus", data);
+    },
+    GetBookStatus: function(id) {
+        return axios.get("/api/bookstatus/" + id);
+    }
 }

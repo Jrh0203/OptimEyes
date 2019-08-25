@@ -1,0 +1,12 @@
+.spinner-border {
+    display: table;
+    margin: 0 auto;
+    margin-bottom: 3%;
+}
+
+.spinnerRow {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
