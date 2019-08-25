@@ -35,3 +35,40 @@ i {
 #yuuvis {
     margin: 0;
 }
+
+.folderTxt {
+    margin-right: 1%;
+    font-size: 15px;
+}
+
+.folderIs {
+    margin-top: 4px;
+}
+
+.upload {
+    margin-right: 1%;
+    font-size: 15px;
+}
+
+.upCircle {
+    margin-top: 5px;
+}
+
+.modal-content {
+    background-color: #2C303A;
+    color: white;
+    -webkit-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -moz-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    -o-box-shadow: 0 5px 15px rgba(0,0,0,0);
+    box-shadow: 0 5px 15px rgba(0,0,0,0);
+}
+
+.yuButton {
+    background-color: #e8198b;
+    border: #e8198b;
+}
+
+.urlHeading {
+    text-align: center;
+    margin-top: 5px;
+}
