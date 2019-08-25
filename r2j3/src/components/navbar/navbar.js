@@ -27,11 +27,10 @@ class Nav extends Component {
                 onToggle={this.setNavExpanded}
                 expanded={this.state.navExpanded}>
                     <img style={{height: '72px', width: 'auto', paddingLeft: '40px'}} src={Logo}/>
-                    <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" style={{backgroundColor: 'rgb(44, 48, 58)'}}/>
+                    <Form inline style={{paddingLeft: '50px', paddingRight: '10px'}}>
+                        <FormControl type="text" placeholder="Search" className="mr-sm-2" style={{backgroundColor: 'rgb(44, 48, 58)', width: '400px', height: '50px'}}/>
                         <Button variant="outline-info">Search</Button>
                     </Form>
-                    <Navbar.Brand style={{visibility: 'none'}}><Link to="/">OptimEyes</Link></Navbar.Brand>
                 </Navbar>
             </div>
         )
