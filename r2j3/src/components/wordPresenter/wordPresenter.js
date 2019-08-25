@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DisplayText from './displayText';
+import Navigation from './Navigation'
 import "./wordPresenter.css";
 
 const LETTER_WIDTH = 24.422
@@ -114,8 +115,10 @@ class WordPresenter extends Component {
         justifyContent: 'center',
         flexDirection: 'column',
         alignItems: 'center'}}>
-        <div style={{width: '309px', border: '1px solid red'}}>
-          <div style={{position: 'relative', left: '65px', height: '123px'}}>
+        <div style={{width: '100%', backgroundColor: 'rgb(32,32,32)', height: '200px' }}>
+          <div style={{position: 'relative', left: '200px', height: '123px', top: '27%'}}>
+              <div className="line"></div>
+              <div className="horizontal_line_top"></div>
             <div style={{display: 'flex', flexDirection: 'row', position: 'absolute', left: -left+'px'}}>
               {currentWord.map((item , i)=> {
                 if(scarletLetter === i) {
@@ -124,7 +127,10 @@ class WordPresenter extends Component {
                 return <h2 key={item+i} style={{color: 'white'}}>{item}</h2>
               })}
             </div>
+            <div className="horizontal_line_bottom"></div>
+            <div className="line_bottom"></div>
           </div>
+          <Navigation/>
         </div>
         { snippet && <DisplayText snippet={snippet} wordArraySnippet={this.state.wordArraySnippet} LETTER_WIDTH={LETTER_WIDTH} selectedWordIndex={selectedWordIndex} cutRow={this.cutRow} position={this.state.position}/> }
       </div>
