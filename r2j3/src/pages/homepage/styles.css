@@ -10,3 +10,28 @@
     justify-content: center;
     align-items: center;
 }
+
+.custom_sidebar {
+    padding: 10px 5px 0 5px
+}
+
+.column_right {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.row_padding {
+    padding: 5px;
+}
+
+.custom_sidebar * {
+    font-size: 0.9em;
+}
+
+i {
+    font-size: 1.3em !important;
+}
+
+#yuuvis {
+    margin: 0;
+}

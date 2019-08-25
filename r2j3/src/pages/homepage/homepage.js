@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
+import WordPresenter from "../../components/wordPresenter/wordPresenter";
 import API from "../../utils/API";
 import "./styles.css";
 
@@ -30,15 +31,18 @@ class Homepage extends Component {
     render(){
         
         return(
-            <Container>
-                <Row>
-                    <Col md={3}>
-                        <Row>
+            <Container fluid>
+                <Row style={{height: '100vh'}}>
+                    <Col md={2} style={{backgroundColor: '#2C303A'}} className="custom_sidebar">
+                        <Row className="row_padding">
+                        <Col className="column_right"><i class="fas fa-folder-plus"></i></Col>
+                        </Row>
+                        <Row className="folder_wrapper">
                             <Col md={1}>
                                 <i class="fas fa-folder"></i>
                             </Col>
                             <Col>
-                                <p>My Folder</p>
+                                <p>MY FOLDER</p>
                             </Col>
                         </Row>
                         <Row>
@@ -46,7 +50,7 @@ class Homepage extends Component {
                                 <i class="fas fa-folder-open"></i>
                             </Col>
                             <Col>
-                                <p>Recents</p>
+                                <p>RECENTS</p>
                             </Col>
                         </Row>
                         <Row>
@@ -54,9 +58,10 @@ class Homepage extends Component {
                                 <i class="fas fa-envelope"></i>
                             </Col>
                             <Col>
-                                <p>No reply at Yuuvis</p>
+                                <p id='yuuvis'>NO REPLY AT YUUVIS</p>
                             </Col>
                         </Row>
+                        <hr></hr>
                         {this.state.objects.length ? (
                             <div>
                                 {this.state.objects.map(book => (
@@ -72,7 +77,7 @@ class Homepage extends Component {
                                                 this.setState({ text: text.data });
                                             })
                                         }}>
-                                            {book.contentStreams[0].fileName.substring(0, book.contentStreams[0].fileName.length - 4)}
+                                            {book.contentStreams[0].fileName.substring(0, book.contentStreams[0].fileName.length - 4).toUpperCase()}
                                         </p>
                                         </Col>
                                     </Row>
@@ -80,9 +85,9 @@ class Homepage extends Component {
                             </div>
                         ) : null}
                     </Col>
-                    <Col>
+                    <Col md={9}>
                         {this.state.text.length ? (
-                            <p>{this.state.text}</p>
+                            <WordPresenter content={this.state.text} />
                         ): 
                         <div className="spinnerRow">
                             <Row>

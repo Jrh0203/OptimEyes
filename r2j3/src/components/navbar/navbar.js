@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Navbar, Form, FormControl, Button, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import "./styles.css";
 
 class Nav extends Component {
     state = {
@@ -19,10 +20,11 @@ class Nav extends Component {
         return (
             <div className="wrapper">
                 <Navbar 
+                    className="custom_navbar"
                     bg="dark"
                     onToggle={this.setNavExpanded}
                     expanded={this.state.navExpanded}>
-                    <Container>
+                    <Container fluid>
                         <Navbar.Brand><Link to="/">OptimEyes</Link></Navbar.Brand>
                         <Form inline>
                             <FormControl type="text" placeholder="Search" className="mr-sm-2" />

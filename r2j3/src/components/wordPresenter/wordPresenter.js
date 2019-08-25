@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import DisplayText from './displayText'
+import DisplayText from './displayText';
+import "./wordPresenter.css";
 
 const LETTER_WIDTH = 24.422
 const NUMBER_RANGE = 15;
@@ -107,7 +108,9 @@ class WordPresenter extends Component {
     const left = LETTER_WIDTH * ( scarletLetter + 1 )
 
     return(
-      <div style={{ display: 'flex',
+      <div
+        className="wordPresent" 
+        style={{ display: 'flex',
         justifyContent: 'center',
         flexDirection: 'column',
         alignItems: 'center'}}>
@@ -129,4 +132,4 @@ class WordPresenter extends Component {
   }
 }
 
-export default WordPresenter
+export default WordPresenter;
