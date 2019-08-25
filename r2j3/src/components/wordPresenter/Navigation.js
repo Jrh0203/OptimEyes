@@ -48,7 +48,7 @@ class Navigation extends Component {
     }
 
     render() {
-        const { toggleMovement, stopThis } = this.props;
+        const { toggleMovement, stopThis, changeWPM } = this.props;
         let icon;
         if (stopThis) {
             icon = "fas fa-play"
@@ -61,9 +61,9 @@ class Navigation extends Component {
                 <i onClick={() => this.handleTimer()} className={icon}></i>
                 <i className="fas fa-redo-alt"></i>
                 <Form style={{paddingLeft: '25px'}}>
-                    <Form.Control className="wpmSelect" as="select" style={{backgroundColor:'rgb(44, 48, 58)', color: 'white'}}>
+                    <Form.Control onChange={(e) => changeWPM(e)} className="wpmSelect" as="select" style={{backgroundColor:'rgb(44, 48, 58)', color: 'white'}}>
                         <option style={{backgroundColor:'rgb(44, 48, 58)'}}>wpm</option>
-                        <option data-val="300">200wpm</option>
+                        <option selected="selected" data-val="300">200wpm</option>
                         <option data-val="240">250wpm</option>
                         <option data-val="200">300wpm</option>
                         <option data-val="172">350wpm</option>
@@ -77,7 +77,7 @@ class Navigation extends Component {
                         <option data-val="80">750wpm</option>
                     </Form.Control>
                 </Form>
-                {/* <Pagehome faceToggleMovement={this.faceToggleMovement} handleTimer={this.handleTimer}/> */}
+                <Pagehome faceToggleMovement={this.faceToggleMovement} handleTimer={this.handleTimer}/>
             </div>
         )
     }

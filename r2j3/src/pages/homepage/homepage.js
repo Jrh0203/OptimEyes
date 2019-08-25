@@ -57,7 +57,9 @@ class Homepage extends Component {
     }
 
     render(){
-        
+        const textCopy = this.state.text.split(' ')
+        textCopy.unshift(' ')
+        textCopy.join(' ')
         return(
           <Fragment>
             <Container fluid>
@@ -68,38 +70,38 @@ class Homepage extends Component {
                         </Row>
                         <Row className="folder_wrapper">
                             <Col md={1}>
-                                <i className="fas fa-folder"></i>
+                                <i style={{marginBottom: '16px', paddingTop: 0}} className="fas fa-folder"></i>
                             </Col>
                             <Col>
-                                <p>MY FOLDER</p>
+                                <p style={{cursor: 'pointer', paddingLeft: '10px'}}>MY FOLDER</p>
                             </Col>
                         </Row>
                         <Row>
                             <Col md={1}>
-                                <i className="fas fa-folder-open"></i>
+                                <i style={{marginBottom: '16px', paddingTop: 0}} className="fas fa-folder-open"></i>
                             </Col>
                             <Col>
-                                <p>RECENTS</p>
+                                <p style={{cursor: 'pointer', paddingLeft: '10px'}}>RECENTS</p>
                             </Col>
                         </Row>
                         <Row>
                             <Col md={1}>
-                                <i className="fas fa-envelope"></i>
+                                <i style={{marginBottom: '16px', paddingTop: 0}} className="fas fa-envelope"></i>
                             </Col>
                             <Col>
-                                <p id='yuuvis'>NO REPLY AT YUUVIS</p>
+                                <p style={{cursor: 'pointer', paddingLeft: '10px', paddingBottom: 0}} id='yuuvis'>NO REPLY AT YUUVIS</p>
                             </Col>
                         </Row>
-                        <hr></hr>
+                        <hr style={{backgroundColor:'white', marginTop: 0}}></hr>
                         {this.state.objects.length ? (
                             <div>
                                 {this.state.objects.map(book => (
                                     <Row>
                                         <Col md={1}>
-                                            <i className="fas fa-book-open"></i>
+                                            <i style={{marginBottom: '16px', paddingTop: 0}} className="fas fa-book-open"></i>
                                         </Col>
                                         <Col>   
-                                        <p onClick={() => {
+                                        <p style={{cursor: 'pointer', paddingLeft: '10px'}}onClick={() => {
                                             let oId = book["properties"]["enaio:objectId"].value;
                                             this.setState({ text: "" });
                                             API.GetBooksContent(oId).then(text => {
@@ -116,7 +118,7 @@ class Homepage extends Component {
                     </Col>
                     <Col md={9}>
                         {this.state.text.length ? (
-                            <WordPresenter content={this.state.text} element={<i className="fas fa-envelope"></i>} />
+                            <WordPresenter content={textCopy} element={<i className="fas fa-envelope"></i>} />
                         ): 
                         <div className="spinnerRow">
                             <Row>

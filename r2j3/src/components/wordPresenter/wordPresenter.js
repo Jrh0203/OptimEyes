@@ -7,29 +7,45 @@ import QuickLinks from '../quickLinks/quickLinks';
 
 const LETTER_WIDTH = 24.422
 const NUMBER_RANGE = 15;
-let stopThis = false;
+let stopThis = true;
 
 class WordPresenter extends Component {
   constructor(props) {
+    stopThis = true;
     super(props)
     const { content } = props;
     this.state = {
-      wordArray: content.split(' '),
-      wordArraySnippet: content.split(' ').slice(0, 1000),
+      wordArray: content,
+      wordArraySnippet: content.slice(0, 10000),
       currentWord: [''],
       withoutPunctuation: [''],
       currentIndex: 0,
       countdown: 3,
       scarletLetter: 0,
       interval: null,
-      stop: false,
+      stop: true,
       showCountdown: false,
       snippet: null,
       position: 0,
       selectedWordIndex: null,
+      wpm: 200,
       speed: 100
     }
     this.changeWord = this.changeWord.bind(this)
+  }
+
+  changeWPM = (e) => {
+    const { value } = e.target;
+    const noLetters = value.replace(/\D/g,'')
+    this.setState({wpm: Number(noLetters)})
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('here!')
+    if(nextProps.content !== this.props.wordArray) {
+      stopThis =true;
+    }
   }
 
   showTheCountdown = (value) => {
@@ -76,8 +92,9 @@ class WordPresenter extends Component {
     const parameters = this.changeWord()
     this.constructSentence()
     const { speed } = parameters
+    console.log('wordsperminute', this.state.wpm)
     if (parameters.currentIndex < wordArray.length - 1 && !stopThis) {
-      setTimeout(() => { this.delay(); }, speed);
+      setTimeout(() => { this.delay(); }, 10);
     }
   }
 
@@ -180,7 +197,7 @@ class WordPresenter extends Component {
             <div className="horizontal_line_bottom"></div>
             <div className="line_bottom"></div>
           </div>
-          <Navigation faceToggleMovement={this.faceToggleMovement} countdown={this.state.countdown} toggleMovement={this.toggleMovement} stopThis={stopThis} decreaseCountdown={this.decreaseCountdown} resetCountdown={this.resetCountdown} showTheCountdown={this.showTheCountdown}/>
+          <Navigation changeWPM={this.changeWPM} faceToggleMovement={this.faceToggleMovement} countdown={this.state.countdown} toggleMovement={this.toggleMovement} stopThis={stopThis} decreaseCountdown={this.decreaseCountdown} resetCountdown={this.resetCountdown} showTheCountdown={this.showTheCountdown}/>
         </div>
         { snippet && <DisplayText snippet={snippet} wordArraySnippet={this.state.wordArraySnippet} LETTER_WIDTH={LETTER_WIDTH} selectedWordIndex={selectedWordIndex} cutRow={this.cutRow} position={this.state.position} stop={this.state.stop}/> }
       </div>
