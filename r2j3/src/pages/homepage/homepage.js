@@ -36,8 +36,9 @@ class Homepage extends Component {
             On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.
             On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.
             On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.
-            
-            `
+            `,
+            DocWordCount: 0,
+            Percentage: 0
         }
     }
 
@@ -59,6 +60,14 @@ class Homepage extends Component {
         this.setState({
             setShow: true 
         })
+    }
+
+    calculatePercentage = (len, i) => {
+        let perc = Math.floor(i/len * 100);
+        this.setState({
+            Percentage: perc
+        })
+        console.log(this.state.Percentage);
     }
 
     render(){
@@ -105,10 +114,19 @@ class Homepage extends Component {
                                         <Col>   
                                         <p onClick={() => {
                                             let oId = book["properties"]["enaio:objectId"].value;
+                                            console.log(oId);
                                             this.setState({ text: "" });
                                             API.GetBooksContent(oId).then(text => {
                                                 this.setState({ text: text.data });
-                                            })
+                                            });
+                                            API.GetBookMetaData(oId).then(meta => {
+                                                let docMetaData = JSON.parse(meta.data);
+                                                let wordCount = Math.floor(docMetaData.objects[0].contentStreams[0].length / 2);
+                                                this.setState({
+                                                    DocWordCount: wordCount,
+                                                    Percentage: 0
+                                                })
+                                            });
                                         }}>
                                             {book.contentStreams[0].fileName.substring(0, book.contentStreams[0].fileName.length - 4).toUpperCase()}
                                         </p>
@@ -148,7 +166,7 @@ class Homepage extends Component {
                     <Col md={9}>
                         {this.state.text.length ? (
                             <div>
-                                <WordPresenter content={this.state.text} element={<i className="fas fa-envelope"></i>} />
+                                <WordPresenter content={this.state.text} element={<i className="fas fa-envelope"></i>} calculatePercentage={this.calculatePercentage}/>
                             </div>
                         ): 
                         <div className="spinnerRow">

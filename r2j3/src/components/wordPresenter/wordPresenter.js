@@ -49,18 +49,18 @@ class WordPresenter extends Component {
       // console.log('here!', currentIndex, R)
       end = currentIndex + NUMBER_RANGE
     }
-    console.log('start')
     const snippet = wordArray.slice(start, end)
     this.setState({ snippet, selectedWordIndex })
   }
 
   componentDidMount() {
-    const { speed, currentIndex, wordArray, stop } = this.state;
+    const { speed, wordArray, stop } = this.state;
     setTimeout(() => { delay(); }, speed);
     const delay = () => {
       const parameters = this.changeWord()
-      this.constructSentence()
       const { speed, currentIndex } = parameters
+      this.constructSentence()
+      this.props.calculatePercentage(wordArray.length, currentIndex)
       if (parameters.currentIndex < wordArray.length - 1 || !stop) {
         setTimeout(() => { delay(); }, speed);
       }

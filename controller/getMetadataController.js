@@ -1,7 +1,6 @@
 const request = require("request");
   
 module.exports = {
-
     getBookMetadata: function(req, res) {
         console.log(req.params.id);
         request.get({
