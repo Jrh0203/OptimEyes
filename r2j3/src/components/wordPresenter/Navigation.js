@@ -77,7 +77,7 @@ class Navigation extends Component {
                         <option data-val="80">750wpm</option>
                     </Form.Control>
                 </Form>
-                <Pagehome faceToggleMovement={this.faceToggleMovement} handleTimer={this.handleTimer}/>
+                {/* <Pagehome faceToggleMovement={this.faceToggleMovement} handleTimer={this.handleTimer}/> */}
             </div>
         )
     }

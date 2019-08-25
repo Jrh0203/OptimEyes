@@ -94,7 +94,7 @@ class WordPresenter extends Component {
     }
     let scarletLetter;
     if (currentWordSplit.length <= 2) {
-      scarletLetter = 0 
+      scarletLetter = 0
     } else if (currentWordSplit.length < 8) {
       scarletLetter = 1
     } else {
@@ -146,7 +146,15 @@ class WordPresenter extends Component {
 
   render() {
     const { currentWord, scarletLetter, snippet, selectedWordIndex, element } = this.state
-    const left = LETTER_WIDTH * ( scarletLetter + 1 )
+    let left
+    if(scarletLetter === 0) {
+      left = LETTER_WIDTH+5 * ( scarletLetter + 1 )
+    } else if (scarletLetter ===1) {
+      left = LETTER_WIDTH * ( scarletLetter + 1 )
+    } else if (scarletLetter ===2) {
+      left = LETTER_WIDTH+15 * ( scarletLetter + 1 )
+    }
+    
     return(
       <div
         className="wordPresent" 
