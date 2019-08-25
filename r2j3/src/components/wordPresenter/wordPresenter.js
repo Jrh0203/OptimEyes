@@ -152,7 +152,7 @@ class WordPresenter extends Component {
     } else if (scarletLetter ===1) {
       left = LETTER_WIDTH * ( scarletLetter + 1 )
     } else if (scarletLetter ===2) {
-      left = LETTER_WIDTH+15 * ( scarletLetter + 1 )
+      left = LETTER_WIDTH+14 * ( scarletLetter + 1 )
     }
     
     return(
